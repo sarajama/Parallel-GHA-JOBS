@@ -1,0 +1,46 @@
+name: Parallel Actions Example
+
+on:
+  push:
+    branches:
+      - dev 
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Install dependencies
+        run: npm install
+      
+      # - name: Build application
+      #   run: npm build
+
+  test:
+    runs-on: ubuntu-latest
+  #  needs: build  # Wait for the 'build' job to complete
+    steps:     
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Install dependencies
+        run: npm install
+      
+      - name: Run tests
+        run: npm test
+
+  deploy:
+    runs-on: ubuntu-latest
+  #  needs: test  # Wait for 'test' jobs to complete
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Deploy to production
+        run: |
+          echo "Deploying..."
+
+
+  
